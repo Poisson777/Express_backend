@@ -1,0 +1,69 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: true
+
+  datasource:
+    password: 'Ppzy123.'
+    url: jdbc:mysql://175.27.240.185:3306/express?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  sql:
+    init:
+      mode: always
+  redis:
+    host: 114.96.84.20
+    port: 6379
+    timeout: 20000
+#    database: 1
+    #    集群环境打开下面注释，单机不需要打开
+    #    cluster:
+    #      集群信息
+    #      nodes: xxx.xxx.xxx.xxx:xxxx,xxx.xxx.xxx.xxx:xxxx,xxx.xxx.xxx.xxx:xxxx
+    #      #默认值是5 一般当此值设置过大时，容易报：Too many Cluster redirections
+    #      maxRedirects: 3
+    pool:
+      max-active: 50
+      min-idle: 0
+      max-idle: 20
+      max-wait: -1
+    password: "Cold123#"
+  resources:
+    mvc:
+      static-path-pattern: /**
+  web:
+    resources:
+      static-locations:
+        - classpath:resources
+        - classpath:static
+#server:
+#  max-http-header-size: 10000000
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: false
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+  configuration:
+    map-underscore-to-camel-case: false
+    cache-enabled: false
+  mapper-locations: com/example/express_end/mapper/*.xml
+server:
+  #端口号
+  port: 8080
+
+cron:
+  report:
+    shoucash: 0 0/3 * * * ? #生成催缴数据
+    reflushRedis: 0 0 0/1 * * ?
+    checkExpireRedis: 0 0 0 1 * ?
